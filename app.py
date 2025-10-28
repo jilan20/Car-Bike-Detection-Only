@@ -1059,7 +1059,7 @@ elif st.session_state.page == 3:
                 for key in ["uploaded_image_pil", "uploaded_image_bytes", "result_image", "dets", "classifications", "process_time"]:
                     if key in st.session_state:
                         del st.session_state[key]
-                st.rerun()rgba(183,148,246,0.1); padding:20px; border-radius:10px; margin-bottom:16px; 
+                                    st.rerun() 
                      border-left:3px solid #b794f6;'>
                     <div style='display:flex; align-items:start;'>
                         <div style='width:36px; height:36px; background:rgba(183,148,246,0.2); border-radius:8px; 
