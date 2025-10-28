@@ -563,9 +563,6 @@ def load_models():
 
 yolo_model, classifier = load_models()
 
-st.sidebar.write("🔍 Debug Info")
-st.sidebar.write(f"Classifier input: {classifier.input_shape}")
-
 # Classification function - CORRECT VERSION
 def classify_crop(crop_img, classifier_model):
     """Classify cropped vehicle image as car or bike"""
