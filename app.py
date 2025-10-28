@@ -563,20 +563,29 @@ def load_models():
 
 yolo_model, classifier = load_models()
 
-#Classification function
+# Classification function - PERBAIKAN
 def classify_crop(crop_img, classifier_model):
     """Classify cropped vehicle image as car or bike"""
     try:
-        img_resized = crop_img.resize((224, 224))
-        img_array = np.array(img_resized) / 255.0
-        img_array = np.expand_dims(img_array, axis=0)
-    
+        # Model mengharapkan input 9216 = 96x96x1 (grayscale)
+        img_resized = crop_img.resize((96, 96))
+        img_gray = img_resized.convert('L')  # Convert to grayscale
+        img_array = np.array(img_gray) / 255.0
+        img_array = np.expand_dims(img_array, axis=-1)  # Shape: (96, 96, 1)
+        img_array = np.expand_dims(img_array, axis=0)   # Shape: (1, 96, 96, 1)
+        
+        # Flatten jika model butuh flatten input
+        # img_array = img_array.reshape(1, -1)  # Shape: (1, 9216)
+        
+        # Predict
         prediction = classifier_model.predict(img_array, verbose=0)
-    
+        
+        # Binary classification: 0=bike, 1=car
         if prediction[0][0] > 0.5:
             return "car", float(prediction[0][0])
         else:
             return "bike", float(1 - prediction[0][0])
+            
     except Exception as e:
         st.error(f"Classification error: {str(e)}")
         return "unknown", 0.0
