@@ -509,8 +509,8 @@ def go_prev():
 
 @st.cache_resource
 def load_models():
-    yolo_path = "Car-Bike-Detection-Only/model/best.pt"
-    clf_path = "Car-Bike-Detection-Only/model/classifier_model.h5"
+    yolo_path = "model/best.pt"
+    clf_path = "model/classifier_model.h5"
     
     yolo_model, classifier = None, None
     
