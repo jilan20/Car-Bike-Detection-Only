@@ -481,6 +481,23 @@ st.markdown(
     </style>
 """, unsafe_allow_html=True)
 
+# -----------------------
+# Session state
+# -----------------------
+if "page" not in st.session_state:
+    st.session_state.page = 0
+if "user_name" not in st.session_state:
+    st.session_state.user_name = ""
+
+def go_next():
+    if st.session_state.page < 3:
+        st.session_state.page += 1
+
+def go_prev():
+    if st.session_state.page > 0:
+        st.session_state.page -= 1
+
+
 #Model ---------------------------------------------------------------------------------------------
 @st.cache_resource
 def load_models():
