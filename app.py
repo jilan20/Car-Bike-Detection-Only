@@ -540,7 +540,7 @@ st.markdown(
     </style>
 """, unsafe_allow_html=True)
 
-# Session state
+#Session state
 if "page" not in st.session_state:
     st.session_state.page = 0
 if "user_name" not in st.session_state:
@@ -554,7 +554,7 @@ def go_prev():
     if st.session_state.page > 0:
         st.session_state.page -= 1
 
-# Model Loading
+#Model 
 @st.cache_resource
 def load_models():
     yolo_model = YOLO("model/best.pt")
@@ -563,19 +563,16 @@ def load_models():
 
 yolo_model, classifier = load_models()
 
-# Classification function
+#Classification function
 def classify_crop(crop_img, classifier_model):
     """Classify cropped vehicle image as car or bike"""
     try:
-        # Resize to model input size (adjust based on your model)
         img_resized = crop_img.resize((224, 224))
         img_array = np.array(img_resized) / 255.0
         img_array = np.expand_dims(img_array, axis=0)
-        
-        # Predict
+    
         prediction = classifier_model.predict(img_array, verbose=0)
-        
-        # Assuming binary classification: 0=bike, 1=car
+    
         if prediction[0][0] > 0.5:
             return "car", float(prediction[0][0])
         else:
@@ -584,13 +581,13 @@ def classify_crop(crop_img, classifier_model):
         st.error(f"Classification error: {str(e)}")
         return "unknown", 0.0
 
-# Header
+#Header
 st.markdown("<div class='hero-title'>Car & Bike Detection AI</div>", unsafe_allow_html=True)
 st.markdown("<div class='hero-sub'>Platform deteksi serta klasifikasi kendaraan berbasis AI menggunakan teknologi Computer Vision dan Deep Learning</div>", unsafe_allow_html=True)
 
 content_col = st.container()
 
-# Page 0 - Landing
+#Halaman 0----------------------------------------------
 if st.session_state.page == 0:
     with content_col:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
@@ -635,49 +632,49 @@ if st.session_state.page == 0:
             if st.button("Mulai Deteksi", use_container_width=True):
                 go_next()
 
-# Page 1 - How it works
+#Halaman 1 --------------------------------------------------------
 elif st.session_state.page == 1:
     with content_col:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         left, right = st.columns([1, 1], gap="large")
         
         with left:
-            st.markdown("<h3 style='color:#fff; font-size:22px; margin-bottom:16px; font-weight:600;'>Bagaimana Sistem Bekerja?</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='color:#e0b3ff; font-size:24px; margin-bottom:24px; font-weight:700;'>Bagaimana Sistem Bekerja?</h3>", unsafe_allow_html=True)
             
-            st.markdown("<div style='background:rgba(255,255,255,0.03); padding:20px; border-radius:10px;'>", unsafe_allow_html=True)
+            st.markdown("<div style='background:rgba(255,255,255,0.02); padding:24px; border-radius:12px; border:1px solid rgba(255,255,255,0.05)'>", unsafe_allow_html=True)
             
             st.markdown("""
-                <div style='margin-bottom:18px; padding-left:12px; border-left:3px solid #b794f6;'>
-                    <h4 style='color:#b794f6; font-size:16px; margin-bottom:6px; font-weight:600;'>📤 Input Processing</h4>
-                    <p style='color:rgba(255,255,255,0.7); font-size:14px; margin:0; line-height:1.5;'>
-                        Gambar diunggah dan dinormalisasi untuk memastikan format dan ukuran sesuai standar model
+                <div style='margin-bottom:20px; padding:18px; background:rgba(183,148,246,0.08); border-radius:10px; border-left:4px solid #b794f6;'>
+                    <h4 style='color:#d4c5f9; font-size:16px; margin-bottom:8px; font-weight:700; letter-spacing:0.3px;'>INPUT PROCESSING</h4>
+                    <p style='color:rgba(255,255,255,0.65); font-size:14px; margin:0; line-height:1.6;'>
+                        Gambar diunggah dan dinormalisasi untuk memastikan format dan ukuran sesuai standar model AI
                     </p>
                 </div>
             """, unsafe_allow_html=True)
             
             st.markdown("""
-                <div style='margin-bottom:18px; padding-left:12px; border-left:3px solid #67c6f4;'>
-                    <h4 style='color:#67c6f4; font-size:16px; margin-bottom:6px; font-weight:600;'>🎯 AI Detection</h4>
-                    <p style='color:rgba(255,255,255,0.7); font-size:14px; margin:0; line-height:1.5;'>
-                        Model YOLOv8n menganalisis gambar dan memprediksi lokasi setiap kendaraan dengan akurasi tinggi
+                <div style='margin-bottom:20px; padding:18px; background:rgba(103,198,244,0.08); border-radius:10px; border-left:4px solid #67c6f4;'>
+                    <h4 style='color:#9ed7f5; font-size:16px; margin-bottom:8px; font-weight:700; letter-spacing:0.3px;'>OBJECT DETECTION</h4>
+                    <p style='color:rgba(255,255,255,0.65); font-size:14px; margin:0; line-height:1.6;'>
+                        Model YOLOv8n menganalisis gambar dan memprediksi lokasi setiap kendaraan dengan akurasi tinggi menggunakan bounding box
                     </p>
                 </div>
             """, unsafe_allow_html=True)
             
             st.markdown("""
-                <div style='margin-bottom:18px; padding-left:12px; border-left:3px solid #9f7aea;'>
-                    <h4 style='color:#9f7aea; font-size:16px; margin-bottom:6px; font-weight:600;'>🔍 Deep Classification</h4>
-                    <p style='color:rgba(255,255,255,0.7); font-size:14px; margin:0; line-height:1.5;'>
-                        Setiap kendaraan terdeteksi diklasifikasi menggunakan CNN classifier untuk menentukan jenis kendaraan
+                <div style='margin-bottom:20px; padding:18px; background:rgba(159,122,234,0.08); border-radius:10px; border-left:4px solid #9f7aea;'>
+                    <h4 style='color:#c4a7f4; font-size:16px; margin-bottom:8px; font-weight:700; letter-spacing:0.3px;'>DEEP CLASSIFICATION</h4>
+                    <p style='color:rgba(255,255,255,0.65); font-size:14px; margin:0; line-height:1.6;'>
+                        Setiap kendaraan terdeteksi diklasifikasi menggunakan CNN classifier untuk menentukan jenis kendaraan secara presisi
                     </p>
                 </div>
             """, unsafe_allow_html=True)
             
             st.markdown("""
-                <div style='padding-left:12px; border-left:3px solid #48bb78;'>
-                    <h4 style='color:#48bb78; font-size:16px; margin-bottom:6px; font-weight:600;'>📊 Visualization</h4>
-                    <p style='color:rgba(255,255,255,0.7); font-size:14px; margin:0; line-height:1.5;'>
-                        Hasil ditampilkan dengan bounding box berwarna, label klasifikasi, dan statistik lengkap untuk analisis
+                <div style='padding:18px; background:rgba(72,187,120,0.08); border-radius:10px; border-left:4px solid #48bb78;'>
+                    <h4 style='color:#7ed6a3; font-size:16px; margin-bottom:8px; font-weight:700; letter-spacing:0.3px;'>VISUALIZATION & ANALYTICS</h4>
+                    <p style='color:rgba(255,255,255,0.65); font-size:14px; margin:0; line-height:1.6;'>
+                        Hasil ditampilkan dengan bounding box berwarna, label klasifikasi, dan statistik lengkap untuk analisis mendalam
                     </p>
                 </div>
             """, unsafe_allow_html=True)
@@ -685,19 +682,120 @@ elif st.session_state.page == 1:
             st.markdown("</div>", unsafe_allow_html=True)
         
         with right:
-            st.markdown("<h3 style='color:#fff; font-size:20px; margin-bottom:20px; font-weight:600;'>Keunggulan Sistem</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='color:#e0b3ff; font-size:24px; margin-bottom:24px; font-weight:700;'>Keunggulan Sistem</h3>", unsafe_allow_html=True)
             
             st.markdown("""
-                <div style='background:rgba(72,187,120,0.1); padding:20px; border-radius:10px; border-left:3px solid #48bb78;'>
+                <div style='background:rgba(183,148,246,0.08); padding:20px; border-radius:12px; margin-bottom:16px; 
+                     border:1px solid rgba(183,148,246,0.15); transition:all 0.3s ease;'>
                     <div style='display:flex; align-items:start;'>
-                        <div style='width:36px; height:36px; background:rgba(72,187,120,0.2); border-radius:8px; 
-                             display:flex; align-items:center; justify-content:center; margin-right:14px; flex-shrink:0;'>
-                            🔒
+                        <div style='width:40px; height:40px; background:linear-gradient(135deg, rgba(183,148,246,0.3), rgba(183,148,246,0.15)); 
+                             border-radius:10px; display:flex; align-items:center; justify-content:center; 
+                             margin-right:16px; flex-shrink:0; border:1px solid rgba(183,148,246,0.2);'>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#b794f6" stroke-width="2.5" 
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                         </div>
                         <div>
-                            <h4 style='color:#fff; font-size:16px; margin:0 0 6px 0; font-weight:600;'>Privasi Terjamin</h4>
-                            <p style='color:rgba(255,255,255,0.7); font-size:14px; margin:0; line-height:1.5;'>
-                                Gambar diproses secara lokal dan tidak disimpan di server untuk menjaga keamanan data
+                            <h4 style='color:#e0b3ff; font-size:16px; margin:0 0 8px 0; font-weight:700;'>Kecepatan Tinggi</h4>
+                            <p style='color:rgba(255,255,255,0.65); font-size:13px; margin:0; line-height:1.6;'>
+                                Proses deteksi dan klasifikasi hanya membutuhkan beberapa detik dengan inference time yang optimal
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+                <div style='background:rgba(103,198,244,0.08); padding:20px; border-radius:12px; margin-bottom:16px; 
+                     border:1px solid rgba(103,198,244,0.15);'>
+                    <div style='display:flex; align-items:start;'>
+                        <div style='width:40px; height:40px; background:linear-gradient(135deg, rgba(103,198,244,0.3), rgba(103,198,244,0.15)); 
+                             border-radius:10px; display:flex; align-items:center; justify-content:center; 
+                             margin-right:16px; flex-shrink:0; border:1px solid rgba(103,198,244,0.2);'>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="#67c6f4" stroke-width="2.5" 
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 4L12 14.01l-3-3" stroke="#67c6f4" stroke-width="2.5" 
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 style='color:#9ed7f5; font-size:16px; margin:0 0 8px 0; font-weight:700;'>Akurasi Presisi</h4>
+                            <p style='color:rgba(255,255,255,0.65); font-size:13px; margin:0; line-height:1.6;'>
+                                Dual-model architecture dengan YOLO untuk deteksi dan CNN untuk klasifikasi memberikan hasil yang sangat akurat
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+                <div style='background:rgba(159,122,234,0.08); padding:20px; border-radius:12px; margin-bottom:16px; 
+                     border:1px solid rgba(159,122,234,0.15);'>
+                    <div style='display:flex; align-items:start;'>
+                        <div style='width:40px; height:40px; background:linear-gradient(135deg, rgba(159,122,234,0.3), rgba(159,122,234,0.15)); 
+                             border-radius:10px; display:flex; align-items:center; justify-content:center; 
+                             margin-right:16px; flex-shrink:0; border:1px solid rgba(159,122,234,0.2);'>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" 
+                                      stroke="#9f7aea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96" stroke="#9f7aea" stroke-width="2" 
+                                          stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="12" y1="22.08" x2="12" y2="12" stroke="#9f7aea" stroke-width="2" 
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 style='color:#c4a7f4; font-size:16px; margin:0 0 8px 0; font-weight:700;'>Multi-Object Detection</h4>
+                            <p style='color:rgba(255,255,255,0.65); font-size:13px; margin:0; line-height:1.6;'>
+                                Mampu mendeteksi dan mengklasifikasi multiple kendaraan dalam satu gambar secara bersamaan dengan presisi tinggi
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+                <div style='background:rgba(72,187,120,0.08); padding:20px; border-radius:12px; margin-bottom:16px;
+                     border:1px solid rgba(72,187,120,0.15);'>
+                    <div style='display:flex; align-items:start;'>
+                        <div style='width:40px; height:40px; background:linear-gradient(135deg, rgba(72,187,120,0.3), rgba(72,187,120,0.15)); 
+                             border-radius:10px; display:flex; align-items:center; justify-content:center; 
+                             margin-right:16px; flex-shrink:0; border:1px solid rgba(72,187,120,0.2);'>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke="#48bb78" stroke-width="2" 
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#48bb78" stroke-width="2" 
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 style='color:#7ed6a3; font-size:16px; margin:0 0 8px 0; font-weight:700;'>Privasi Terjamin</h4>
+                            <p style='color:rgba(255,255,255,0.65); font-size:13px; margin:0; line-height:1.6;'>
+                                Gambar diproses secara lokal dan tidak disimpan di server untuk menjaga keamanan dan privasi data Anda
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+                <div style='background:rgba(236,201,75,0.08); padding:20px; border-radius:12px;
+                     border:1px solid rgba(236,201,75,0.15);'>
+                    <div style='display:flex; align-items:start;'>
+                        <div style='width:40px; height:40px; background:linear-gradient(135deg, rgba(236,201,75,0.3), rgba(236,201,75,0.15)); 
+                             border-radius:10px; display:flex; align-items:center; justify-content:center; 
+                             margin-right:16px; flex-shrink:0; border:1px solid rgba(236,201,75,0.2);'>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="#ecc94b" stroke-width="2" 
+                                          stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 style='color:#f6e05e; font-size:16px; margin:0 0 8px 0; font-weight:700;'>Analisis Real-time</h4>
+                            <p style='color:rgba(255,255,255,0.65); font-size:13px; margin:0; line-height:1.6;'>
+                                Dapatkan statistik lengkap, confidence score, dan visualisasi data secara instant untuk keputusan cepat
                             </p>
                         </div>
                     </div>
@@ -713,7 +811,7 @@ elif st.session_state.page == 1:
         with col3:
             if st.button("Lanjut →", use_container_width=True):
                 go_next()
-
+                
 # Page 2 - User Settings
 elif st.session_state.page == 2:
     st.markdown("<div class='card'>", unsafe_allow_html=True)
