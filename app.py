@@ -688,7 +688,378 @@ elif st.session_state.page == 1:
             st.markdown("<h3 style='color:#fff; font-size:20px; margin-bottom:20px; font-weight:600;'>Keunggulan Sistem</h3>", unsafe_allow_html=True)
             
             st.markdown("""
-                <div style='background:rgba(183,148,246,0.1); padding:20px; border-radius:10px; margin-bottom:16px; 
+                <div style='background:rgba(72,187,120,0.1); padding:20px; border-radius:10px; border-left:3px solid #48bb78;'>
+                    <div style='display:flex; align-items:start;'>
+                        <div style='width:36px; height:36px; background:rgba(72,187,120,0.2); border-radius:8px; 
+                             display:flex; align-items:center; justify-content:center; margin-right:14px; flex-shrink:0;'>
+                            🔒
+                        </div>
+                        <div>
+                            <h4 style='color:#fff; font-size:16px; margin:0 0 6px 0; font-weight:600;'>Privasi Terjamin</h4>
+                            <p style='color:rgba(255,255,255,0.7); font-size:14px; margin:0; line-height:1.5;'>
+                                Gambar diproses secara lokal dan tidak disimpan di server untuk menjaga keamanan data
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            """, unsafe_allow_html=True)
+        
+        st.markdown("</div>", unsafe_allow_html=True)
+        
+        col1, col2, col3 = st.columns([1,2,1])
+        with col1:
+            if st.button("← Kembali", use_container_width=True):
+                go_prev()
+        with col3:
+            if st.button("Lanjut →", use_container_width=True):
+                go_next()
+
+# Page 2 - User Settings
+elif st.session_state.page == 2:
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align:center'>Pengaturan Pengguna</h3>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center;color:rgba(255,255,255,0.6);margin-bottom:32px'>Personalisasi pengalaman Anda</p>", unsafe_allow_html=True)
+    
+    col1, col2 = st.columns(2, gap="large")
+    
+    with col1:
+        st.markdown("<h4>Nama Pengguna</h4>", unsafe_allow_html=True)
+        name = st.text_input("", value=st.session_state.user_name, placeholder="Masukkan nama Anda...", label_visibility="collapsed")
+        st.session_state.user_name = name
+        st.markdown("<p style='color:rgba(255,255,255,0.5);font-size:13px;margin-top:8px'>Minimal 2 karakter</p>", unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("<h4>Informasi Developer</h4>", unsafe_allow_html=True)
+        st.markdown("""
+        <div style='background:rgba(255,255,255,0.04);padding:24px;border-radius:12px;border:1px solid rgba(255,255,255,0.1)'>
+            <div style='display:flex;align-items:center;gap:16px;margin-bottom:16px'>
+                <div style='width:60px;height:60px;background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:white'>JP</div>
+                <div>
+                    <p style='margin:0;color:#e0b3ff;font-weight:700;font-size:18px'>Jilan Putri Malisa</p>
+                    <p style='margin:4px 0 0;color:rgba(255,255,255,0.6);font-size:14px'>AI Developer & Data Scientist</p>
+                </div>
+            </div>
+            <div style='border-top:1px solid rgba(255,255,255,0.1);padding-top:16px'>
+                <p style='color:rgba(255,255,255,0.6);font-size:14px;margin-bottom:12px'>
+                    📧 jilanptr06@gmail.com
+                </p>
+                <div style='display:flex;gap:10px'>
+                    <a href='https://github.com/jilan20' target='_blank' 
+                       style='flex:1;background:rgba(167,139,250,0.1);padding:10px;border-radius:8px;
+                       text-align:center;color:#a78bfa;text-decoration:none;font-weight:600;font-size:14px;
+                       border:1px solid rgba(167,139,250,0.2)'>
+                        GitHub
+                    </a>
+                    <a href='https://linkedin.com' target='_blank' 
+                       style='flex:1;background:rgba(167,139,250,0.1);padding:10px;border-radius:8px;
+                       text-align:center;color:#a78bfa;text-decoration:none;font-weight:600;font-size:14px;
+                       border:1px solid rgba(167,139,250,0.2)'>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("</div>", unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1,2,1])
+    with col1:
+        if st.button("← Kembali", use_container_width=True):
+            go_prev()
+    with col3:
+        if st.button("Lanjutkan →", use_container_width=True):
+            go_next()
+
+# Page 3 - Detection & Classification
+elif st.session_state.page == 3:
+    with content_col:
+        if st.session_state.user_name:
+            st.markdown(f"""
+                <div class='welcome-banner'>
+                    <h4>👋 Selamat datang, {st.session_state.user_name}!</h4>
+                    <p class='muted' style='margin:8px 0 0 0'>Unggah gambar kendaraan untuk memulai deteksi dan klasifikasi menggunakan AI</p>
+                </div>
+            """, unsafe_allow_html=True)
+        
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("<h3>🎯 Deteksi & Klasifikasi Kendaraan</h3>", unsafe_allow_html=True)
+        st.markdown("<p class='muted'>Unggah gambar kendaraan dalam format JPG atau PNG untuk analisis otomatis dengan dual-model AI</p>", unsafe_allow_html=True)
+        
+        uploaded = st.file_uploader("Pilih Gambar", type=["jpg","jpeg","png"], label_visibility="collapsed")
+        
+        if uploaded:
+            try:
+                image = Image.open(uploaded).convert("RGB")
+                st.session_state["uploaded_image_pil"] = image
+                st.session_state["uploaded_image_bytes"] = uploaded.getvalue()
+            except Exception as e:
+                st.error(f"❌ Gagal membuka gambar: {str(e)}")
+        
+        if "uploaded_image_pil" in st.session_state:
+            col_img, col_preview = st.columns([2, 1], gap="large")
+            
+            with col_img:
+                st.image(st.session_state["uploaded_image_pil"], caption="📸 Gambar Input", use_container_width=True)
+            
+            with col_preview:
+                file_type = uploaded.type if uploaded else "unknown"
+                file_size = f"{uploaded.size / 1024:.1f} KB" if uploaded else "0 KB"
+                img_width, img_height = st.session_state["uploaded_image_pil"].size
+                st.markdown(f"""
+                    <div class='settings-box'>
+                        <h4 style='margin:0 0 12px 0;color:#e0b3ff'>📋 Info Gambar</h4>
+                        <p class='muted' style='margin:4px 0'><strong>Format:</strong> {file_type}</p>
+                        <p class='muted' style='margin:4px 0'><strong>Ukuran:</strong> {file_size}</p>
+                        <p class='muted' style='margin:4px 0'><strong>Dimensi:</strong> {img_width} x {img_height}px</p>
+                    </div>
+                """, unsafe_allow_html=True)
+            
+            col1, col2, col3 = st.columns([1,1,1])
+            with col2:
+                if yolo_model is not None and classifier is not None:
+                    if st.button("🚀 Mulai Deteksi & Klasifikasi", use_container_width=True):
+                        start_time = time.time()
+                        with st.spinner("🤖 AI sedang menganalisis gambar..."):
+                            try:
+                                # YOLO Detection
+                                results = yolo_model.predict(
+                                    np.array(st.session_state["uploaded_image_pil"]), 
+                                    imgsz=960, 
+                                    conf=0.45, 
+                                    max_det=50
+                                )
+                                r0 = results[0]
+                                
+                                dets = []
+                                classifications = []
+                                
+                                if hasattr(r0, "boxes") and r0.boxes is not None and len(r0.boxes) > 0:
+                                    boxes = r0.boxes.xyxy.cpu().numpy()
+                                    scores = r0.boxes.conf.cpu().numpy()
+                                    classes = r0.boxes.cls.cpu().numpy().astype(int)
+                                    names = r0.names if hasattr(r0, "names") else {}
+                                    
+                                    orig_img = st.session_state["uploaded_image_pil"]
+                                    
+                                    # Classify each detection
+                                    for idx, (b, s, c) in enumerate(zip(boxes, scores, classes)):
+                                        yolo_class = names.get(int(c), str(c))
+                                        
+                                        # Crop the detected region
+                                        x1, y1, x2, y2 = map(int, b)
+                                        crop = orig_img.crop((x1, y1, x2, y2))
+                                        
+                                        # Classify the crop
+                                        class_name, class_conf = classify_crop(crop, classifier)
+                                        
+                                        dets.append({
+                                            "ID": idx + 1,
+                                            "YOLO Class": yolo_class,
+                                            "Classified As": class_name,
+                                            "Detection Conf": f"{float(s):.1%}",
+                                            "Classification Conf": f"{class_conf:.1%}",
+                                            "Bounding Box": f"({x1}, {y1}, {x2}, {y2})",
+                                            "Det_Confidence": float(s),
+                                            "Class_Confidence": class_conf
+                                        })
+                                        
+                                        classifications.append({
+                                            "class": class_name,
+                                            "confidence": class_conf
+                                        })
+                                
+                                # Draw results with classifications
+                                plotted = r0.plot()
+                                if isinstance(plotted, np.ndarray):
+                                    img = Image.fromarray(plotted)
+                                else:
+                                    img = plotted if isinstance(plotted, Image.Image) else Image.fromarray(np.array(plotted))
+                                
+                                # Resize for display
+                                target_width = 900
+                                max_width = 1200
+                                if img.width < target_width:
+                                    scale = target_width / img.width
+                                    new_size = (int(img.width * scale), int(img.height * scale))
+                                    img = img.resize(new_size, Image.LANCZOS)
+                                if img.width > max_width:
+                                    scale = max_width / img.width
+                                    img = img.resize((int(img.width * scale), int(img.height * scale)), Image.LANCZOS)
+                                
+                                st.session_state["result_image"] = img
+                                st.session_state["dets"] = dets
+                                st.session_state["classifications"] = classifications
+                                
+                                end_time = time.time()
+                                st.session_state["process_time"] = end_time - start_time
+                                st.success("✅ Deteksi dan klasifikasi berhasil!")
+                                st.rerun()
+                                
+                            except Exception as e:
+                                st.error(f"❌ Error: {str(e)}")
+                else:
+                    st.error("⚠️ Model tidak tersedia.")
+        
+        if "result_image" in st.session_state and "dets" in st.session_state:
+            st.markdown("</div>", unsafe_allow_html=True)
+
+            # Display result image
+            st.markdown("<div style='margin:32px 0;padding:4px;background:linear-gradient(135deg,rgba(183,148,246,0.3),rgba(139,115,209,0.2));border-radius:20px'>", unsafe_allow_html=True)
+            st.image(st.session_state["result_image"], use_container_width=True)
+            st.markdown("</div>", unsafe_allow_html=True)
+
+            col1, col2, col3 = st.columns([1.5,1,1.5])
+            with col2:
+                st.markdown("<div style='background:linear-gradient(135deg,#8b73d1,#b794f6);color:white;border:none;border-radius:12px;padding:12px 24px;font-weight:600;text-align:center'>📊 Hasil Analisis AI</div>", unsafe_allow_html=True)
+            
+            # Statistics
+            dets = st.session_state["dets"]
+            car_count = sum(1 for d in dets if 'car' in d['Classified As'].lower())
+            bike_count = sum(1 for d in dets if 'bike' in d['Classified As'].lower())
+            avg_det_conf = np.mean([d['Det_Confidence'] for d in dets]) if dets else 0
+            avg_class_conf = np.mean([d['Class_Confidence'] for d in dets]) if dets else 0
+            process_time = st.session_state.get("process_time", 0)
+            
+            st.markdown("<div class='card' style='margin-top:32px'>", unsafe_allow_html=True)
+
+            stat1, stat2, stat3, stat4, stat5 = st.columns(5, gap="medium")
+            
+            total_vehicles = car_count + bike_count
+            car_pct = (car_count / total_vehicles * 100) if total_vehicles > 0 else 0
+            bike_pct = (bike_count / total_vehicles * 100) if total_vehicles > 0 else 0
+            
+            with stat1:
+                st.markdown(f"""
+                    <div class='stat-card'>
+                        <div style='font-size:24px;margin-bottom:8px'>🎯</div>
+                        <div class='stat-label'>Deteksi</div>
+                        <div class='stat-number'>{avg_det_conf:.1%}</div>
+                        <div class='stat-sublabel'>Akurasi YOLO</div>
+                    </div>
+                """, unsafe_allow_html=True)
+            
+            with stat2:
+                st.markdown(f"""
+                    <div class='stat-card'>
+                        <div style='font-size:24px;margin-bottom:8px'>🔍</div>
+                        <div class='stat-label'>Klasifikasi</div>
+                        <div class='stat-number'>{avg_class_conf:.1%}</div>
+                        <div class='stat-sublabel'>Akurasi CNN</div>
+                    </div>
+                """, unsafe_allow_html=True)
+            
+            with stat3:
+                st.markdown(f"""
+                    <div class='stat-card'>
+                        <div style='font-size:24px;margin-bottom:8px'>🚗</div>
+                        <div class='stat-label'>Mobil</div>
+                        <div class='stat-number'>{car_count}</div>
+                        <div class='stat-sublabel'>{car_pct:.0f}% dari total</div>
+                    </div>
+                """, unsafe_allow_html=True)
+            
+            with stat4:
+                st.markdown(f"""
+                    <div class='stat-card'>
+                        <div style='font-size:24px;margin-bottom:8px'>🏍️</div>
+                        <div class='stat-label'>Motor</div>
+                        <div class='stat-number'>{bike_count}</div>
+                        <div class='stat-sublabel'>{bike_pct:.0f}% dari total</div>
+                    </div>
+                """, unsafe_allow_html=True)
+            
+            with stat5:
+                st.markdown(f"""
+                    <div class='stat-card'>
+                        <div style='font-size:24px;margin-bottom:8px'>⏱️</div>
+                        <div class='stat-label'>Waktu</div>
+                        <div class='stat-number'>{process_time:.2f}s</div>
+                        <div class='stat-sublabel'>Total inferensi</div>
+                    </div>
+                """, unsafe_allow_html=True)
+            
+            st.markdown("</div>", unsafe_allow_html=True)
+
+            # Detailed table
+            st.markdown("<div class='detail-table'>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom:20px'>📋 Detail Klasifikasi</h3>", unsafe_allow_html=True)
+            st.markdown("<div class='table-header'><div>ID</div><div>Kelas</div><div>Conf. Deteksi</div><div>Conf. Klasifikasi</div></div>", unsafe_allow_html=True)
+            
+            for d in dets:
+                badge_class = "badge-car" if "car" in d["Classified As"].lower() else "badge-bike"
+                icon = "🚗" if "car" in d["Classified As"].lower() else "🏍️"
+                st.markdown(f"""
+                    <div class='table-row'>
+                        <div style='color:#c7bfe8;font-weight:700'>#{d['ID']}</div>
+                        <div><span class='class-badge {badge_class}'>{icon} {d['Classified As'].title()}</span></div>
+                        <div>
+                            <div style='color:#c7bfe8;font-weight:600'>{d['Detection Conf']}</div>
+                            <div class='conf-bar' style='width:100%;margin-top:4px'>
+                                <div class='conf-fill' style='width:{d["Det_Confidence"]*100}%'></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style='color:#b8aed4;font-weight:600'>{d['Classification Conf']}</div>
+                            <div class='conf-bar' style='width:100%;margin-top:4px'>
+                                <div class='conf-fill' style='width:{d["Class_Confidence"]*100}%'></div>
+                            </div>
+                        </div>
+                    </div>
+                """, unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
+            
+            # Download CSV
+            try:
+                df = pd.DataFrame(dets)
+                csv = df.to_csv(index=False).encode('utf-8')
+                st.download_button("📥 Download Laporan CSV", data=csv, file_name="vehicle_classification_results.csv", mime="text/csv", use_container_width=True)
+            except Exception:
+                pass
+            
+            # Navigation
+            col_l, col_r = st.columns([1,1])
+            with col_l:
+                if st.button("← Kembali", key="back_results"):
+                    go_prev()
+            with col_r:
+                if st.button("🔄 Mulai Baru", key="reset_results"):
+                    keys_to_clear = ["uploaded_image_pil", "uploaded_image_bytes", "result_image", "dets", "classifications", "process_time"]
+                    for k in keys_to_clear:
+                        if k in st.session_state:
+                            del st.session_state[k]
+                    st.rerun()
+        
+        # Feedback section
+        st.markdown("<div class='card' style='margin-top:32px'>", unsafe_allow_html=True)
+        st.markdown("<h3>💬 Feedback & Rating</h3>", unsafe_allow_html=True)
+        st.markdown("<p class='muted'>Bantu kami meningkatkan sistem dengan memberikan feedback Anda</p>", unsafe_allow_html=True)
+        
+        feedback = st.text_area("Tulis feedback Anda", placeholder="Bagikan pengalaman, saran, atau kritik Anda tentang aplikasi ini...", label_visibility="collapsed", height=100)
+        
+        col_rate, col_submit = st.columns([2,1])
+        with col_rate:
+            rating = st.select_slider("⭐ Rating Aplikasi", options=[1,2,3,4,5], value=5)
+        with col_submit:
+            st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
+            if st.button("📤 Kirim Feedback", use_container_width=True):
+                if feedback:
+                    st.success("✅ Terima kasih atas feedback Anda!")
+                else:
+                    st.warning("⚠️ Mohon tulis feedback terlebih dahulu")
+        
+        st.markdown("</div>", unsafe_allow_html=True)
+        
+        col1, col2, col3 = st.columns([1,1,1])
+        with col1:
+            if st.button("← Kembali"):
+                go_prev()
+        with col3:
+            if st.button("🔄 Mulai Baru"):
+                for key in ["uploaded_image_pil", "uploaded_image_bytes", "result_image", "dets", "classifications", "process_time"]:
+                    if key in st.session_state:
+                        del st.session_state[key]
+                st.rerun()rgba(183,148,246,0.1); padding:20px; border-radius:10px; margin-bottom:16px; 
                      border-left:3px solid #b794f6;'>
                     <div style='display:flex; align-items:start;'>
                         <div style='width:36px; height:36px; background:rgba(183,148,246,0.2); border-radius:8px; 
