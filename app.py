@@ -506,7 +506,6 @@ def go_prev():
 # ==========================
 # Load Models
 # ==========================
-import tensorflow as tf
 
 @st.cache_resource
 def load_models():
@@ -519,21 +518,29 @@ def load_models():
         try:
             if os.path.exists(yolo_path):
                 yolo_model = YOLO(yolo_path)
+                if hasattr(yolo_model, 'names'):
+                    print(f"✅ Model loaded with classes: {yolo_model.names}")
             else:
-                yolo_model = YOLO("yolov8n.pt")
-        except:
-            pass
+                st.error(f"❌ Model YOLO tidak ditemukan di: {yolo_path}")
+                st.warning("⚠️ Pastikan file best.pt ada di folder Car-Bike-Detection-Only/model/")
+                yolo_model = None
+        except Exception as e:
+            st.error(f"❌ Error saat loading model YOLO: {str(e)}")
+            yolo_model = None
     
     try:
         if os.path.exists(clf_path):
             classifier = tf.keras.models.load_model(clf_path)
-    except:
-        pass
+        else:
+            st.warning(f"⚠️ Classifier model tidak ditemukan di: {clf_path}")
+            classifier = None
+    except Exception as e:
+        st.error(f"❌ Error saat loading classifier: {str(e)}")
+        classifier = None
     
     return yolo_model, classifier
 
 yolo_model, classifier = load_models()
-
 # -----------------------
 # Header
 # -----------------------
