@@ -625,7 +625,7 @@ if st.session_state.page == 0:
         
         st.markdown("</div>", unsafe_allow_html=True)
         
-        st.markdown("<div style='text-align:center;margin-top:16px'><p class='muted' style='font-size:14px'>🚀 Gratis · ⚡ Tanpa Registrasi · 📊 Hasil Instan · 🔒 Privasi Terjamin</p></div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align:center;margin-top:16px'><p class='muted' style='font-size:14px'>Gratis · Tanpa Registrasi · Hasil Instan · Privasi Terjamin</p></div>", unsafe_allow_html=True)
         
         col1, col2, col3 = st.columns([1,1,1])
         with col2:
@@ -812,7 +812,7 @@ elif st.session_state.page == 1:
             if st.button("Lanjut →", use_container_width=True):
                 go_next()
                 
-# Page 2 - User Settings
+#halaman 2 ----------------------------------------
 elif st.session_state.page == 2:
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align:center'>Pengaturan Pengguna</h3>", unsafe_allow_html=True)
@@ -869,19 +869,20 @@ elif st.session_state.page == 2:
         if st.button("Lanjutkan →", use_container_width=True):
             go_next()
 
+#halaman 3 ------------------------------------
 # Page 3 - Detection & Classification
 elif st.session_state.page == 3:
     with content_col:
         if st.session_state.user_name:
             st.markdown(f"""
                 <div class='welcome-banner'>
-                    <h4>👋 Selamat datang, {st.session_state.user_name}!</h4>
+                    <h4>Selamat datang, {st.session_state.user_name}!</h4>
                     <p class='muted' style='margin:8px 0 0 0'>Unggah gambar kendaraan untuk memulai deteksi dan klasifikasi menggunakan AI</p>
                 </div>
             """, unsafe_allow_html=True)
         
         st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("<h3>🎯 Deteksi & Klasifikasi Kendaraan</h3>", unsafe_allow_html=True)
+        st.markdown("<h3>Deteksi & Klasifikasi Kendaraan</h3>", unsafe_allow_html=True)
         st.markdown("<p class='muted'>Unggah gambar kendaraan dalam format JPG atau PNG untuk analisis otomatis dengan dual-model AI</p>", unsafe_allow_html=True)
         
         uploaded = st.file_uploader("Pilih Gambar", type=["jpg","jpeg","png"], label_visibility="collapsed")
@@ -892,13 +893,13 @@ elif st.session_state.page == 3:
                 st.session_state["uploaded_image_pil"] = image
                 st.session_state["uploaded_image_bytes"] = uploaded.getvalue()
             except Exception as e:
-                st.error(f"❌ Gagal membuka gambar: {str(e)}")
+                st.error(f"Gagal membuka gambar: {str(e)}")
         
         if "uploaded_image_pil" in st.session_state:
             col_img, col_preview = st.columns([2, 1], gap="large")
             
             with col_img:
-                st.image(st.session_state["uploaded_image_pil"], caption="📸 Gambar Input", use_container_width=True)
+                st.image(st.session_state["uploaded_image_pil"], caption="Gambar Input", use_container_width=True)
             
             with col_preview:
                 file_type = uploaded.type if uploaded else "unknown"
@@ -906,7 +907,7 @@ elif st.session_state.page == 3:
                 img_width, img_height = st.session_state["uploaded_image_pil"].size
                 st.markdown(f"""
                     <div class='settings-box'>
-                        <h4 style='margin:0 0 12px 0;color:#e0b3ff'>📋 Info Gambar</h4>
+                        <h4 style='margin:0 0 12px 0;color:#e0b3ff'>Info Gambar</h4>
                         <p class='muted' style='margin:4px 0'><strong>Format:</strong> {file_type}</p>
                         <p class='muted' style='margin:4px 0'><strong>Ukuran:</strong> {file_size}</p>
                         <p class='muted' style='margin:4px 0'><strong>Dimensi:</strong> {img_width} x {img_height}px</p>
@@ -916,9 +917,9 @@ elif st.session_state.page == 3:
             col1, col2, col3 = st.columns([1,1,1])
             with col2:
                 if yolo_model is not None and classifier is not None:
-                    if st.button("🚀 Mulai Deteksi & Klasifikasi", use_container_width=True):
+                    if st.button("Mulai Deteksi & Klasifikasi", use_container_width=True):
                         start_time = time.time()
-                        with st.spinner("🤖 AI sedang menganalisis gambar..."):
+                        with st.spinner("AI sedang menganalisis gambar..."):
                             try:
                                 # YOLO Detection
                                 results = yolo_model.predict(
@@ -991,13 +992,13 @@ elif st.session_state.page == 3:
                                 
                                 end_time = time.time()
                                 st.session_state["process_time"] = end_time - start_time
-                                st.success("✅ Deteksi dan klasifikasi berhasil!")
+                                st.success("Deteksi dan klasifikasi berhasil!")
                                 st.rerun()
                                 
                             except Exception as e:
-                                st.error(f"❌ Error: {str(e)}")
+                                st.error(f"Error: {str(e)}")
                 else:
-                    st.error("⚠️ Model tidak tersedia.")
+                    st.error("Model tidak tersedia.")
         
         if "result_image" in st.session_state and "dets" in st.session_state:
             st.markdown("</div>", unsafe_allow_html=True)
@@ -1009,19 +1010,24 @@ elif st.session_state.page == 3:
 
             col1, col2, col3 = st.columns([1.5,1,1.5])
             with col2:
-                st.markdown("<div style='background:linear-gradient(135deg,#8b73d1,#b794f6);color:white;border:none;border-radius:12px;padding:12px 24px;font-weight:600;text-align:center'>📊 Hasil Analisis AI</div>", unsafe_allow_html=True)
+                st.markdown("<div style='background:linear-gradient(135deg,#8b73d1,#b794f6);color:white;border:none;border-radius:12px;padding:12px 24px;font-weight:600;text-align:center'>Hasil Analisis AI</div>", unsafe_allow_html=True)
             
-            # Statistics
+            # Statistics - HITUNG DARI HASIL KLASIFIKASI
             dets = st.session_state["dets"]
+            
+            # Hitung berdasarkan hasil KLASIFIKASI (bukan YOLO detection)
             car_count = sum(1 for d in dets if 'car' in d['Classified As'].lower())
-            bike_count = sum(1 for d in dets if 'bike' in d['Classified As'].lower())
+            bike_count = sum(1 for d in dets if 'bike' in d['Classified As'].lower() or 'motor' in d['Classified As'].lower())
+            total_detected = len(dets)
+            
             avg_det_conf = np.mean([d['Det_Confidence'] for d in dets]) if dets else 0
             avg_class_conf = np.mean([d['Class_Confidence'] for d in dets]) if dets else 0
             process_time = st.session_state.get("process_time", 0)
             
             st.markdown("<div class='card' style='margin-top:32px'>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom:24px;text-align:center'>Statistik Deteksi & Klasifikasi</h3>", unsafe_allow_html=True)
 
-            stat1, stat2, stat3, stat4, stat5 = st.columns(5, gap="medium")
+            stat1, stat2, stat3, stat4, stat5, stat6 = st.columns(6, gap="medium")
             
             total_vehicles = car_count + bike_count
             car_pct = (car_count / total_vehicles * 100) if total_vehicles > 0 else 0
@@ -1030,48 +1036,52 @@ elif st.session_state.page == 3:
             with stat1:
                 st.markdown(f"""
                     <div class='stat-card'>
-                        <div style='font-size:24px;margin-bottom:8px'>🎯</div>
-                        <div class='stat-label'>Deteksi</div>
-                        <div class='stat-number'>{avg_det_conf:.1%}</div>
-                        <div class='stat-sublabel'>Akurasi YOLO</div>
+                        <div class='stat-label'>Total Objek</div>
+                        <div class='stat-number'>{total_detected}</div>
+                        <div class='stat-sublabel'>Terdeteksi</div>
                     </div>
                 """, unsafe_allow_html=True)
             
             with stat2:
                 st.markdown(f"""
                     <div class='stat-card'>
-                        <div style='font-size:24px;margin-bottom:8px'>🔍</div>
-                        <div class='stat-label'>Klasifikasi</div>
-                        <div class='stat-number'>{avg_class_conf:.1%}</div>
-                        <div class='stat-sublabel'>Akurasi CNN</div>
+                        <div class='stat-label'>Akurasi Deteksi</div>
+                        <div class='stat-number'>{avg_det_conf:.0%}</div>
+                        <div class='stat-sublabel'>YOLO Model</div>
                     </div>
                 """, unsafe_allow_html=True)
             
             with stat3:
                 st.markdown(f"""
                     <div class='stat-card'>
-                        <div style='font-size:24px;margin-bottom:8px'>🚗</div>
-                        <div class='stat-label'>Mobil</div>
-                        <div class='stat-number'>{car_count}</div>
-                        <div class='stat-sublabel'>{car_pct:.0f}% dari total</div>
+                        <div class='stat-label'>Akurasi Klasifikasi</div>
+                        <div class='stat-number'>{avg_class_conf:.0%}</div>
+                        <div class='stat-sublabel'>CNN Model</div>
                     </div>
                 """, unsafe_allow_html=True)
             
             with stat4:
                 st.markdown(f"""
                     <div class='stat-card'>
-                        <div style='font-size:24px;margin-bottom:8px'>🏍️</div>
-                        <div class='stat-label'>Motor</div>
-                        <div class='stat-number'>{bike_count}</div>
-                        <div class='stat-sublabel'>{bike_pct:.0f}% dari total</div>
+                        <div class='stat-label'>Mobil</div>
+                        <div class='stat-number'>{car_count}</div>
+                        <div class='stat-sublabel'>{car_pct:.0f}% dari total</div>
                     </div>
                 """, unsafe_allow_html=True)
             
             with stat5:
                 st.markdown(f"""
                     <div class='stat-card'>
-                        <div style='font-size:24px;margin-bottom:8px'>⏱️</div>
-                        <div class='stat-label'>Waktu</div>
+                        <div class='stat-label'>Motor</div>
+                        <div class='stat-number'>{bike_count}</div>
+                        <div class='stat-sublabel'>{bike_pct:.0f}% dari total</div>
+                    </div>
+                """, unsafe_allow_html=True)
+            
+            with stat6:
+                st.markdown(f"""
+                    <div class='stat-card'>
+                        <div class='stat-label'>Waktu Proses</div>
                         <div class='stat-number'>{process_time:.2f}s</div>
                         <div class='stat-sublabel'>Total inferensi</div>
                     </div>
@@ -1081,26 +1091,25 @@ elif st.session_state.page == 3:
 
             # Detailed table
             st.markdown("<div class='detail-table'>", unsafe_allow_html=True)
-            st.markdown("<h3 style='margin-bottom:20px'>📋 Detail Klasifikasi</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom:20px'>Detail Klasifikasi Objek</h3>", unsafe_allow_html=True)
             st.markdown("<div class='table-header'><div>ID</div><div>Kelas</div><div>Conf. Deteksi</div><div>Conf. Klasifikasi</div></div>", unsafe_allow_html=True)
             
             for d in dets:
                 badge_class = "badge-car" if "car" in d["Classified As"].lower() else "badge-bike"
-                icon = "🚗" if "car" in d["Classified As"].lower() else "🏍️"
                 st.markdown(f"""
                     <div class='table-row'>
                         <div style='color:#c7bfe8;font-weight:700'>#{d['ID']}</div>
-                        <div><span class='class-badge {badge_class}'>{icon} {d['Classified As'].title()}</span></div>
+                        <div><span class='class-badge {badge_class}'>{d['Classified As'].title()}</span></div>
                         <div>
                             <div style='color:#c7bfe8;font-weight:600'>{d['Detection Conf']}</div>
-                            <div class='conf-bar' style='width:100%;margin-top:4px'>
-                                <div class='conf-fill' style='width:{d["Det_Confidence"]*100}%'></div>
+                            <div class='conf-bar' style='width:100%;margin-top:4px;background:rgba(255,255,255,0.1);height:6px;border-radius:3px;overflow:hidden'>
+                                <div class='conf-fill' style='width:{d["Det_Confidence"]*100}%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa)'></div>
                             </div>
                         </div>
                         <div>
                             <div style='color:#b8aed4;font-weight:600'>{d['Classification Conf']}</div>
-                            <div class='conf-bar' style='width:100%;margin-top:4px'>
-                                <div class='conf-fill' style='width:{d["Class_Confidence"]*100}%'></div>
+                            <div class='conf-bar' style='width:100%;margin-top:4px;background:rgba(255,255,255,0.1);height:6px;border-radius:3px;overflow:hidden'>
+                                <div class='conf-fill' style='width:{d["Class_Confidence"]*100}%;height:100%;background:linear-gradient(90deg,#67c6f4,#9ed7f5)'></div>
                             </div>
                         </div>
                     </div>
@@ -1111,7 +1120,7 @@ elif st.session_state.page == 3:
             try:
                 df = pd.DataFrame(dets)
                 csv = df.to_csv(index=False).encode('utf-8')
-                st.download_button("📥 Download Laporan CSV", data=csv, file_name="vehicle_classification_results.csv", mime="text/csv", use_container_width=True)
+                st.download_button("Download Laporan CSV", data=csv, file_name="vehicle_classification_results.csv", mime="text/csv", use_container_width=True)
             except Exception:
                 pass
             
@@ -1121,30 +1130,30 @@ elif st.session_state.page == 3:
                 if st.button("← Kembali", key="back_results"):
                     go_prev()
             with col_r:
-                if st.button("🔄 Mulai Baru", key="reset_results"):
+                if st.button("Mulai Baru", key="reset_results"):
                     keys_to_clear = ["uploaded_image_pil", "uploaded_image_bytes", "result_image", "dets", "classifications", "process_time"]
                     for k in keys_to_clear:
                         if k in st.session_state:
                             del st.session_state[k]
                     st.rerun()
         
-        #Feedback section
+        # Feedback section
         st.markdown("<div class='card' style='margin-top:32px'>", unsafe_allow_html=True)
-        st.markdown("<h3>💬 Feedback & Rating</h3>", unsafe_allow_html=True)
+        st.markdown("<h3>Feedback & Rating</h3>", unsafe_allow_html=True)
         st.markdown("<p class='muted'>Bantu kami meningkatkan sistem dengan memberikan feedback Anda</p>", unsafe_allow_html=True)
         
         feedback = st.text_area("Tulis feedback Anda", placeholder="Bagikan pengalaman, saran, atau kritik Anda tentang aplikasi ini...", label_visibility="collapsed", height=100)
         
         col_rate, col_submit = st.columns([2,1])
         with col_rate:
-            rating = st.select_slider("⭐ Rating Aplikasi", options=[1,2,3,4,5], value=5)
+            rating = st.select_slider("Rating Aplikasi", options=[1,2,3,4,5], value=5)
         with col_submit:
             st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
-            if st.button("📤 Kirim Feedback", use_container_width=True):
+            if st.button("Kirim Feedback", use_container_width=True):
                 if feedback:
-                    st.success("✅ Terima kasih atas feedback Anda!")
+                    st.success("Terima kasih atas feedback Anda!")
                 else:
-                    st.warning("⚠️ Mohon tulis feedback terlebih dahulu")
+                    st.warning("Mohon tulis feedback terlebih dahulu")
         
         st.markdown("</div>", unsafe_allow_html=True)
         
@@ -1153,7 +1162,7 @@ elif st.session_state.page == 3:
             if st.button("← Kembali"):
                 go_prev()
         with col3:
-            if st.button("🔄 Mulai Baru"):
+            if st.button("Mulai Baru"):
                 for key in ["uploaded_image_pil", "uploaded_image_bytes", "result_image", "dets", "classifications", "process_time"]:
                     if key in st.session_state:
                         del st.session_state[key]
