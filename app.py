@@ -510,8 +510,8 @@ import tensorflow as tf
 
 @st.cache_resource
 def load_models():
-    yolo_path = "Car-Bike-Detection/model/best.pt"
-    clf_path = "Car-Bike-Detection/model/classifier_model.h5"
+    yolo_path = "Car-Bike-Detection-Only/model/best.pt"
+    clf_path = "Car-Bike-Detection-Only/model/classifier_model.h5"
     
     yolo_model, classifier = None, None
     
