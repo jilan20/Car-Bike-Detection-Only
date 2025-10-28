@@ -3,6 +3,7 @@ import streamlit as st
 from PIL import Image, ImageOps, ImageDraw, ImageFont
 import numpy as np
 import pandas as pd
+import tensorflow as tf
 import os
 import io
 import time
