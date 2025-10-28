@@ -1,4 +1,3 @@
-# (Full app.py updated — change only in the "Mulai Baru" handler to safely rerun)
 import streamlit as st
 from PIL import Image, ImageOps, ImageDraw, ImageFont
 import numpy as np
@@ -8,7 +7,6 @@ import os
 import io
 import time
 
-# --- Check installed packages (silently) ---
 ULTRALYTICS_AVAILABLE = False
 try:
     import ultralytics
@@ -510,35 +508,8 @@ def go_prev():
 
 @st.cache_resource
 def load_models():
-    yolo_path = "model/best.pt"
-    clf_path = "model/classifier_model.h5"
-    
-    yolo_model, classifier = None, None
-    
-    if ULTRALYTICS_AVAILABLE:
-        try:
-            if os.path.exists(yolo_path):
-                yolo_model = YOLO(yolo_path)
-                if hasattr(yolo_model, 'names'):
-                    print(f"✅ Model loaded with classes: {yolo_model.names}")
-            else:
-                st.error(f"❌ Model YOLO tidak ditemukan di: {yolo_path}")
-                st.warning("⚠️ Pastikan file best.pt ada di folder Car-Bike-Detection-Only/model/")
-                yolo_model = None
-        except Exception as e:
-            st.error(f"❌ Error saat loading model YOLO: {str(e)}")
-            yolo_model = None
-    
-    try:
-        if os.path.exists(clf_path):
-            classifier = tf.keras.models.load_model(clf_path)
-        else:
-            st.warning(f"⚠️ Classifier model tidak ditemukan di: {clf_path}")
-            classifier = None
-    except Exception as e:
-        st.error(f"❌ Error saat loading classifier: {str(e)}")
-        classifier = None
-    
+    yolo_model = YOLO("model/best.pt")  # Model deteksi objek
+    classifier = tf.keras.models.load_model("model/classifier_model.h5")  # Model klasifikasi
     return yolo_model, classifier
 
 yolo_model, classifier = load_models()
