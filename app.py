@@ -1030,7 +1030,7 @@ elif st.session_state.page == 3:
                             del st.session_state[k]
                     st.rerun()
         
-        # Feedback section
+        #Feedback section
         st.markdown("<div class='card' style='margin-top:32px'>", unsafe_allow_html=True)
         st.markdown("<h3>💬 Feedback & Rating</h3>", unsafe_allow_html=True)
         st.markdown("<p class='muted'>Bantu kami meningkatkan sistem dengan memberikan feedback Anda</p>", unsafe_allow_html=True)
@@ -1059,40 +1059,4 @@ elif st.session_state.page == 3:
                 for key in ["uploaded_image_pil", "uploaded_image_bytes", "result_image", "dets", "classifications", "process_time"]:
                     if key in st.session_state:
                         del st.session_state[key]
-                st.rerun() 
-                     border-left:3px solid #b794f6;'>
-                    <div style='display:flex; align-items:start;'>
-                        <div style='width:36px; height:36px; background:rgba(183,148,246,0.2); border-radius:8px; 
-                             display:flex; align-items:center; justify-content:center; margin-right:14px; flex-shrink:0;'>
-                            ⚡
-                        </div>
-                        <div>
-                            <h4 style='color:#fff; font-size:16px; margin:0 0 6px 0; font-weight:600;'>Kecepatan Tinggi</h4>
-                            <p style='color:rgba(255,255,255,0.7); font-size:14px; margin:0; line-height:1.5;'>
-                                Proses deteksi dan klasifikasi hanya membutuhkan beberapa detik dengan inference time yang optimal
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            """, unsafe_allow_html=True)
-            
-            st.markdown("""
-                <div style='background:rgba(103,198,244,0.1); padding:20px; border-radius:10px; margin-bottom:16px; 
-                     border-left:3px solid #67c6f4;'>
-                    <div style='display:flex; align-items:start;'>
-                        <div style='width:36px; height:36px; background:rgba(103,198,244,0.2); border-radius:8px; 
-                             display:flex; align-items:center; justify-content:center; margin-right:14px; flex-shrink:0;'>
-                            🎯
-                        </div>
-                        <div>
-                            <h4 style='color:#fff; font-size:16px; margin:0 0 6px 0; font-weight:600;'>Akurasi Presisi</h4>
-                            <p style='color:rgba(255,255,255,0.7); font-size:14px; margin:0; line-height:1.5;'>
-                                Dual-model architecture dengan YOLO untuk deteksi dan CNN untuk klasifikasi memberikan hasil yang akurat
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            """, unsafe_allow_html=True)
-            
-            st.markdown("""
-                <div style='background:
+                st.rerun()
