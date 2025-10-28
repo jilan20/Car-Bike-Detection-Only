@@ -729,7 +729,7 @@ elif st.session_state.page == 2:
                 <div class='avatar'>JP</div>
                 <div>
                     <p style='margin:0;color:#e0b3ff;font-weight:700;font-size:18px'>Jilan Putri Malisa</p>
-                    <p style='margin:4px 0 0;color:rgba(255,255,255,0.6);font-size:14px'>AI Developer & Data Scientist</p>
+                    <p style='margin:4px 0 0;color:rgba(255,255,255,0.6);font-size:14px'>AI Developer & Data Scientist (Aamiin ya Allah, Aamiinin bareng bareng ya teman teman)</p>
                 </div>
             </div>
             <div style='border-top:1px solid rgba(255,255,255,0.1);padding-top:16px'>
