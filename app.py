@@ -567,20 +567,18 @@ yolo_model, classifier = load_models()
 def classify_crop(crop_img, classifier_model):
     """Classify cropped vehicle image as car or bike"""
     try:
-        # Model mengharapkan input 9216 = 96x96x1 (grayscale)
+        # Resize ke 96x96 grayscale
         img_resized = crop_img.resize((96, 96))
-        img_gray = img_resized.convert('L')  # Convert to grayscale
+        img_gray = img_resized.convert('L')
         img_array = np.array(img_gray) / 255.0
-        img_array = np.expand_dims(img_array, axis=-1)  # Shape: (96, 96, 1)
-        img_array = np.expand_dims(img_array, axis=0)   # Shape: (1, 96, 96, 1)
         
-        # Flatten jika model butuh flatten input
-        # img_array = img_array.reshape(1, -1)  # Shape: (1, 9216)
+        # Flatten langsung ke (1, 9216)
+        img_array = img_array.flatten()
+        img_array = np.expand_dims(img_array, axis=0)  # Shape: (1, 9216)
         
         # Predict
         prediction = classifier_model.predict(img_array, verbose=0)
         
-        # Binary classification: 0=bike, 1=car
         if prediction[0][0] > 0.5:
             return "car", float(prediction[0][0])
         else:
@@ -589,7 +587,7 @@ def classify_crop(crop_img, classifier_model):
     except Exception as e:
         st.error(f"Classification error: {str(e)}")
         return "unknown", 0.0
-
+        
 #Header
 st.markdown("<div class='hero-title'>Car & Bike Detection AI</div>", unsafe_allow_html=True)
 st.markdown("<div class='hero-sub'>Platform deteksi serta klasifikasi kendaraan berbasis AI menggunakan teknologi Computer Vision dan Deep Learning</div>", unsafe_allow_html=True)
