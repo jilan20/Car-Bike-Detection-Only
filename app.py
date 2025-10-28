@@ -951,7 +951,7 @@ elif st.session_state.page == 3:
             #Navigasi
             col_l, col_r = st.columns([1,1])
             with col_l:
-                if st.button("⬅️ Kembali", key="back_results"):
+                if st.button("← Kembali", key="back_results"):
                     go_prev()
             with col_r:
                 if st.button("Mulai Baru", key="reset_results"):
