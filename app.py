@@ -457,6 +457,32 @@ st.markdown(
     .card {
       animation: fadeIn 0.6s ease-out;
     }
+     /* Hide Streamlit Footer & Header */
+    footer {
+        visibility: hidden !important;
+        display: none !important;
+    }
+    
+    header {
+        visibility: hidden !important;
+        display: none !important;
+    }
+    
+    /* Hide that annoying top bar */
+    .stApp > header {
+        background-color: transparent !important;
+        display: none !important;
+    }
+    
+    /* Remove padding at top */
+    .block-container {
+        padding-top: 2rem !important;
+    }
+    
+    /* Hide deploy button and hamburger menu */
+    [data-testid="stToolbar"] {
+        display: none !important;
+    }
     </style>
 """, unsafe_allow_html=True)
 
