@@ -563,29 +563,29 @@ def load_models():
 
 yolo_model, classifier = load_models()
 
-st.sidebar.write("Debug Info:")
-st.sidebar.write(f"Classifier Input Shape: {classifier.input_shape}")
-st.sidebar.write(f"Expected flatten size: {np.prod(classifier.input_shape[1:])}")
-# Classification function - PERBAIKAN
+st.sidebar.write("🔍 Debug Info")
+st.sidebar.write(f"Classifier input: {classifier.input_shape}")
+
+# Classification function - CORRECT VERSION
 def classify_crop(crop_img, classifier_model):
     """Classify cropped vehicle image as car or bike"""
     try:
-        # Resize ke 96x96 grayscale
-        img_resized = crop_img.resize((96, 96))
-        img_gray = img_resized.convert('L')
-        img_array = np.array(img_gray) / 255.0
-        
-        # Flatten langsung ke (1, 9216)
-        img_array = img_array.flatten()
-        img_array = np.expand_dims(img_array, axis=0)  # Shape: (1, 9216)
+        # Model trained dengan 128x128 RGB
+        img_resized = crop_img.resize((128, 128))
+        img_array = np.array(img_resized) / 255.0  # Rescale seperti saat training
+        img_array = np.expand_dims(img_array, axis=0)  # Shape: (1, 128, 128, 3)
         
         # Predict
         prediction = classifier_model.predict(img_array, verbose=0)
         
-        if prediction[0][0] > 0.5:
-            return "car", float(prediction[0][0])
+        # Binary classification dengan sigmoid output
+        # Assuming: 0 = bike/motor, 1 = car (sesuai urutan folder alfabetis)
+        confidence = float(prediction[0][0])
+        
+        if confidence > 0.5:
+            return "car", confidence
         else:
-            return "bike", float(1 - prediction[0][0])
+            return "bike", 1 - confidence
             
     except Exception as e:
         st.error(f"Classification error: {str(e)}")
