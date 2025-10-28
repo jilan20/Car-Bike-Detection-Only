@@ -547,7 +547,7 @@ if st.session_state.page == 0:
                     <img src='https://cdn-icons-png.flaticon.com/512/8618/8618881.png' 
                      style='width:80px; height:80px; object-fit:contain;'/>
                     <h3>AI Powered</h3>
-                    <p class='muted'>Memanfaatkan YOLOv8 untuk inference cepat dan akurasi tinggi dalam deteksi real-time</p>
+                    <p class='muted'>Memanfaatkan YOLOv8n untuk inference cepat dan akurasi tinggi dalam deteksi real-time</p>
                 </div>
             """, unsafe_allow_html=True)
         
@@ -982,10 +982,10 @@ elif st.session_state.page == 3:
             # Navigation
             col_l, col_r = st.columns([1,1])
             with col_l:
-                if st.button("⬅️ Kembali"):
+                if st.button("⬅️ Kembali", key="back_results"):
                     go_prev()
             with col_r:
-                if st.button("Mulai Baru"):
+                if st.button("Mulai Baru", key="reset_results"):
                     # Clear uploaded image and results
                     keys_to_clear = ["uploaded_image_pil", "uploaded_image_bytes", "result_image", "dets", "process_time"]
                     for k in keys_to_clear:
@@ -1003,7 +1003,8 @@ elif st.session_state.page == 3:
                     else:
                         # Fallback when experimental_rerun not available
                         st.session_state.page = 3
-                        
+
+
         # Feedback Form
         st.markdown("<div class='card' style='margin-top:32px'>", unsafe_allow_html=True)
         st.markdown("<h3>💬 Feedback</h3>", unsafe_allow_html=True)
