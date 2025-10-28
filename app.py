@@ -15,14 +15,9 @@ try:
 except:
     pass
 
-# -----------------------
-# Page config
-# -----------------------
 st.set_page_config(page_title="Car & Bike Detection AI", page_icon="🚗", layout="wide")
 
-# -----------------------
-# CSS - Modern Purple Theme
-# -----------------------
+# CSS ------------------------
 st.markdown(
     """
     <style>
@@ -486,72 +481,22 @@ st.markdown(
     </style>
 """, unsafe_allow_html=True)
 
-# Tambahkan ini TEPAT SETELAH CSS di atas
-st.markdown("""
-    <script>
-    const hideElements = () => {
-        const selectors = [
-            '[data-testid="stToolbar"]',
-            '[data-testid="stDecoration"]',
-            '[data-testid="stStatusWidget"]',
-            'button[title="View app menu"]',
-            '#MainMenu',
-            'header',
-            'footer'
-        ];
-        selectors.forEach(selector => {
-            const elements = parent.document.querySelectorAll(selector);
-            elements.forEach(el => {
-                el.style.display = 'none';
-                el.style.visibility = 'hidden';
-            });
-        });
-    };
-    hideElements();
-    setInterval(hideElements, 100);
-    </script>
-""", unsafe_allow_html=True)
-
-# -----------------------
-# Session state
-# -----------------------
-if "page" not in st.session_state:
-    st.session_state.page = 0
-if "user_name" not in st.session_state:
-    st.session_state.user_name = ""
-
-def go_next():
-    if st.session_state.page < 3:
-        st.session_state.page += 1
-
-def go_prev():
-    if st.session_state.page > 0:
-        st.session_state.page -= 1
-
-# ==========================
-# Load Models
-# ==========================
-
+#Model ---------------------------------------------------------------------------------------------
 @st.cache_resource
 def load_models():
-    yolo_model = YOLO("model/best.pt")  # Model deteksi objek
-    classifier = tf.keras.models.load_model("model/classifier_model.h5")  # Model klasifikasi
+    yolo_model = YOLO("model/best.pt")  #Model deteksi objek
+    classifier = tf.keras.models.load_model("model/classifier_model.h5")  #Model klasifikasi
     return yolo_model, classifier
 
 yolo_model, classifier = load_models()
-# -----------------------
-# Header
-# -----------------------
 
+#Header ---------------------------------------------------------------------------------------------------------------------
 st.markdown("<div class='hero-title'>Car & Bike Detection AI</div>", unsafe_allow_html=True)
-st.markdown("<div class='hero-sub'>Platform deteksi kendaraan berbasis AI menggunakan teknologi Computer Vision dan Deep Learning</div>", unsafe_allow_html=True)
+st.markdown("<div class='hero-sub'>Platform deteksi serta klasifikasi kendaraan berbasis AI menggunakan teknologi Computer Vision dan Deep Learning</div>", unsafe_allow_html=True)
 
-# -----------------------
-# Main Content
-# -----------------------
 content_col = st.container()
 
-# ============ PAGE 0: Home ============
+#Halaman 0-----------------------------------------------------------------------------------------------------------
 if st.session_state.page == 0:
     with content_col:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
@@ -596,7 +541,7 @@ if st.session_state.page == 0:
             if st.button("Mulai Deteksi", use_container_width=True):
                 go_next()
 
-# ============ PAGE 1: Teknologi ============
+#Halaman 1---------------------------------------------------------------------------------------------------------------------------------------
 elif st.session_state.page == 1:
     with content_col:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
@@ -607,7 +552,7 @@ elif st.session_state.page == 1:
             
             st.markdown("<div style='background:rgba(255,255,255,0.03); padding:20px; border-radius:10px;'>", unsafe_allow_html=True)
             
-            # Input Processing
+            #Input Processing
             st.markdown("""
                 <div style='margin-bottom:18px; padding-left:12px; border-left:3px solid #b794f6;'>
                     <h4 style='color:#b794f6; font-size:16px; margin-bottom:6px; font-weight:600;'>Input Processing</h4>
@@ -617,7 +562,7 @@ elif st.session_state.page == 1:
                 </div>
             """, unsafe_allow_html=True)
             
-            # AI Detection
+            #AI Detection
             st.markdown("""
                 <div style='margin-bottom:18px; padding-left:12px; border-left:3px solid #67c6f4;'>
                     <h4 style='color:#67c6f4; font-size:16px; margin-bottom:6px; font-weight:600;'>AI Detection</h4>
@@ -627,7 +572,7 @@ elif st.session_state.page == 1:
                 </div>
             """, unsafe_allow_html=True)
             
-            # Classification
+            #Classification
             st.markdown("""
                 <div style='margin-bottom:18px; padding-left:12px; border-left:3px solid #9f7aea;'>
                     <h4 style='color:#9f7aea; font-size:16px; margin-bottom:6px; font-weight:600;'>Classification</h4>
@@ -637,7 +582,7 @@ elif st.session_state.page == 1:
                 </div>
             """, unsafe_allow_html=True)
             
-            # Visualization
+            #Visualization
             st.markdown("""
                 <div style='padding-left:12px; border-left:3px solid #48bb78;'>
                     <h4 style='color:#48bb78; font-size:16px; margin-bottom:6px; font-weight:600;'>Visualization</h4>
@@ -651,7 +596,7 @@ elif st.session_state.page == 1:
         
         with right:
             st.markdown("<h3 style='color:#fff; font-size:20px; margin-bottom:20px; font-weight:600;'>Keunggulan Sistem</h3>", unsafe_allow_html=True)
-            # Kecepatan Tinggi
+            #Kecepatan Tinggi
             st.markdown("""
                 <div style='background:rgba(183,148,246,0.1); padding:20px; border-radius:10px; margin-bottom:16px; 
                      border-left:3px solid #b794f6;'>
@@ -673,7 +618,7 @@ elif st.session_state.page == 1:
                 </div>
             """, unsafe_allow_html=True)
             
-            # Akurasi Presisi
+            #Akurasi Presisi
             st.markdown("""
                 <div style='background:rgba(103,198,244,0.1); padding:20px; border-radius:10px; margin-bottom:16px; 
                      border-left:3px solid #67c6f4;'>
@@ -697,10 +642,9 @@ elif st.session_state.page == 1:
                 </div>
             """, unsafe_allow_html=True)
             
-            # Privasi Terjamin
+            #Privasi Terjamin
             st.markdown("""
-                <div style='background:rgba(72,187,120,0.1); padding:20px; border-radius:10px; 
-                     border-left:3px solid #48bb78;'>
+                <div style='background:rgba(72,187,120,0.1); padding:20px; border-radius:10px; border-left:3px solid #48bb78;'>
                     <div style='display:flex; align-items:start;'>
                         <div style='width:36px; height:36px; background:rgba(72,187,120,0.2); border-radius:8px; 
                              display:flex; align-items:center; justify-content:center; margin-right:14px; flex-shrink:0;'>
@@ -731,9 +675,8 @@ elif st.session_state.page == 1:
             if st.button("Lanjut →", use_container_width=True):
                 go_next()
                 
-# ======================
-# PAGE 2: PENGATURAN
-# ======================
+
+#Halaman 2 ---------------------------------------------------------------------------------------------------------------------------------
 elif st.session_state.page == 2:
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align:center'>Pengaturan Pengguna</h3>", unsafe_allow_html=True)
@@ -790,15 +733,15 @@ elif st.session_state.page == 2:
         if st.button("Lanjutkan →", use_container_width=True):
             go_next()
 
-# ============ PAGE 3: Upload & Detect ============
+#Halaman 3 ----------------------------------------------------------------------------------------------------------------
 elif st.session_state.page == 3:
     with content_col:
-        # Welcome banner
+        #Welcome banner
         if st.session_state.user_name:
             st.markdown(f"""
                 <div class='welcome-banner'>
                     <h4>👋 Selamat datang, {st.session_state.user_name}!</h4>
-                    <p class='muted' style='margin:8px 0 0 0'>Unggah gambar kendaraan untuk memulai deteksi AI</p>
+                    <p class='muted' style='margin:8px 0 0 0'>Unggah gambar kendaraan untuk memulai deteksi dan klasifikasi kendaraan menggunakan AI</p>
                 </div>
             """, unsafe_allow_html=True)
         
@@ -833,7 +776,7 @@ elif st.session_state.page == 3:
                     </div>
                 """, unsafe_allow_html=True)
             
-            # Detect button
+            #tombol detect
             col1, col2, col3 = st.columns([1,1,1])
             with col2:
                 if yolo_model is not None:
@@ -841,8 +784,6 @@ elif st.session_state.page == 3:
                         start_time = time.time()
                         with st.spinner("🤖 Model sedang menganalisis gambar..."):
                             try:
-                                # Increase imgsz so plotted image from YOLO is higher-res.
-                                # Use a moderate value (960) to balance quality and memory/time.
                                 results = yolo_model.predict(
                                     np.array(st.session_state["uploaded_image_pil"]), 
                                     imgsz=960, 
@@ -850,34 +791,27 @@ elif st.session_state.page == 3:
                                     max_det=50
                                 )
                                 r0 = results[0]
-
-                                # r0.plot() returns a numpy array (HxWx3). Convert to PIL and
-                                # upscale small outputs so they display "compact" and readable
-                                plotted = r0.plot()  # numpy array
+                                
+                                plotted = r0.plot()  
                                 if isinstance(plotted, np.ndarray):
                                     img = Image.fromarray(plotted)
                                 else:
-                                    # fallback if plot returns PIL already
                                     img = plotted if isinstance(plotted, Image.Image) else Image.fromarray(np.array(plotted))
 
-                                # Desired compact width (fits nicely without clicking). Adjust as needed.
                                 target_width = 900
                                 max_width = 1200
 
-                                # Upscale only if smaller than target_width
                                 if img.width < target_width:
                                     scale = target_width / img.width
                                     new_size = (int(img.width * scale), int(img.height * scale))
                                     img = img.resize(new_size, Image.LANCZOS)
 
-                                # Ensure it's not excessively large
                                 if img.width > max_width:
                                     scale = max_width / img.width
                                     img = img.resize((int(img.width * scale), int(img.height * scale)), Image.LANCZOS)
 
                                 st.session_state["result_image"] = img
-                                
-                                # Parse detections
+
                                 dets = []
                                 if hasattr(r0, "boxes") and r0.boxes is not None and len(r0.boxes) > 0:
                                     boxes = r0.boxes.xyxy.cpu().numpy()
@@ -905,21 +839,18 @@ elif st.session_state.page == 3:
                 else:
                     st.error("⚠️ Model tidak tersedia. Pastikan file model tersedia di folder yang benar.")
         
-        # Display results
         if "result_image" in st.session_state and "dets" in st.session_state:
             st.markdown("</div>", unsafe_allow_html=True)
-            
-            # Result image (now stored as PIL Image and already resized to a compact readable width)
+
             st.markdown("<div style='margin:32px 0;padding:4px;background:linear-gradient(135deg,rgba(183,148,246,0.3),rgba(139,115,209,0.2));border-radius:20px'>", unsafe_allow_html=True)
             st.image(st.session_state["result_image"], use_container_width=True)
             st.markdown("</div>", unsafe_allow_html=True)
-            
-            # Centered button (visual only)
+
             col1, col2, col3 = st.columns([1.5,1,1.5])
             with col2:
                 st.markdown("<button style='background:linear-gradient(135deg,#8b73d1,#b794f6);color:white;border:none;border-radius:12px;padding:12px 24px;font-weight:600;width:100%;cursor:default'>Hasil Deteksi</button>", unsafe_allow_html=True)
             
-            # Statistics
+            #Hasil Statistik
             dets = st.session_state["dets"]
             car_count = sum(1 for d in dets if 'car' in d['Kelas'].lower())
             bike_count = sum(1 for d in dets if 'bike' in d['Kelas'].lower() or 'motor' in d['Kelas'].lower())
@@ -927,8 +858,7 @@ elif st.session_state.page == 3:
             process_time = st.session_state.get("process_time", 0)
             
             st.markdown("<div class='card' style='margin-top:32px'>", unsafe_allow_html=True)
-            
-            # Stats row
+
             stat1, stat2, stat3, stat4 = st.columns(4, gap="medium")
             
             total_vehicles = car_count + bike_count
@@ -980,8 +910,7 @@ elif st.session_state.page == 3:
                 """, unsafe_allow_html=True)
             
             st.markdown("</div>", unsafe_allow_html=True)  # close card
-            
-            # Details table
+
             st.markdown("<div class='detail-table'>", unsafe_allow_html=True)
             st.markdown("<div class='table-header'><div>Class</div><div>Confidence</div><div>Bounding Box</div><div></div></div>", unsafe_allow_html=True)
             for d in dets:
@@ -994,44 +923,34 @@ elif st.session_state.page == 3:
                         <div style='text-align:right;color:#9d92b8'> </div>
                     </div>
                 """, unsafe_allow_html=True)
-            st.markdown("</div>", unsafe_allow_html=True)
-            
-            # DataFrame & CSV download
+            st.markdown("</div>", unsafe_allow_html=True)            
+            #DataFrame & CSV download
             try:
                 df = pd.DataFrame(dets)
                 csv = df.to_csv(index=False).encode('utf-8')
                 st.download_button("Download laporan CSV", data=csv, file_name="detections.csv", mime="text/csv")
             except Exception:
-                # Fallback, if dets is empty or not convertible
                 pass
-
-            # Navigation
+            #Navigasi
             col_l, col_r = st.columns([1,1])
             with col_l:
                 if st.button("⬅️ Kembali", key="back_results"):
                     go_prev()
             with col_r:
                 if st.button("Mulai Baru", key="reset_results"):
-                    # Clear uploaded image and results
                     keys_to_clear = ["uploaded_image_pil", "uploaded_image_bytes", "result_image", "dets", "process_time"]
                     for k in keys_to_clear:
                         if k in st.session_state:
                             del st.session_state[k]
 
-                    # Safely request rerun. Some Streamlit runtimes may not expose experimental_rerun()
-                    # (which would raise AttributeError). Guard the call so the app doesn't crash.
                     if hasattr(st, "experimental_rerun"):
                         try:
                             st.experimental_rerun()
                         except Exception:
-                            # If rerun fails for any reason, fallback to resetting the page state
                             st.session_state.page = 3
                     else:
-                        # Fallback when experimental_rerun not available
                         st.session_state.page = 3
-
-
-        # Feedback Form
+        #Feedback
         st.markdown("<div class='card' style='margin-top:32px'>", unsafe_allow_html=True)
         st.markdown("<h3>💬 Feedback</h3>", unsafe_allow_html=True)
         feedback = st.text_area("Berikan feedback Anda tentang aplikasi ini", placeholder="Tulis feedback, saran, atau kritik Anda di sini...", label_visibility="collapsed")
@@ -1054,6 +973,3 @@ elif st.session_state.page == 3:
                     if key in st.session_state:
                         del st.session_state[key]
                 st.rerun()
-        
-
-        
